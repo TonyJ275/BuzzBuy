@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Row, Col, Image, ListGroup, Card, Button, FormControl } from "react-bootstrap";
 import Rating from "../components/Rating";
@@ -11,7 +11,6 @@ import { addToCart } from "../slices/cartSlice";
 const ProductScreen = () => {
    const { id: productId } = useParams();
 
-   // const navigate = useNavigate();
    const dispatch = useDispatch();
 
    const [qty, setQty] = useState(1);
@@ -24,7 +23,6 @@ const ProductScreen = () => {
 
    const addToCartHandler = () => {
       dispatch(addToCart({ ...product, qty }));
-      // navigate('/cart');
    }
 
    return (
