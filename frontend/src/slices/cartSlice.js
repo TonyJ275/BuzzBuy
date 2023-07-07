@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 // we are not using createApi because we are not dealing with async requests.
 import { updateCart } from '../utils/cartUtils';
 
-const initialState = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : { cartItems: [] };
+const initialState = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : { cartItems: [], shippingAddress: [], payementMethod: 'Paypal' };
 
 
 
@@ -28,10 +28,14 @@ const cartSlice = createSlice({
             state.cartItems = state.cartItems.filter((x) => x._id !== action.payload);
 
             return updateCart(state);
+        },
+        saveShippingAddress: (state, action) => {
+            state.shippingAddress = action.payload;
+            updateCart(state);
         }
     },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions; //exporting as action
+export const { addToCart, removeFromCart, saveShippingAddress } = cartSlice.actions; //exporting as action
 
 export default cartSlice.reducer;
