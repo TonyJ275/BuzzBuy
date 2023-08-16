@@ -21,7 +21,7 @@ To run the BuzzBuy application on your local machine, follow these steps:
 2. Navigate to the project directory: `cd BuzzBuy`
 3. Install the dependencies: `npm install`
 4. Set up your MongoDB database and update the connection details in the `.env` file.
-5. Start the development server: `npm start`
+5. Start the development server: `npm run dev`
 6. Open your browser and visit: `http://localhost:3000`
 
 ## Contributing
@@ -30,5 +30,10 @@ Contributions are welcome! If you find any bugs or have ideas for improvements, 
 ## Contact
 For any questions or inquiries, feel free to contact on the given email:
 - Email: krishwave66@gmail.com
+
+
+
+https://github.com/TonyJ275/BuzzBuy/assets/115610428/39bff1dc-9763-43d5-b00f-cb359ec4595b
+
 
 Happy shopping with BuzzBuy!
