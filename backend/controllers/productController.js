@@ -5,8 +5,15 @@ import Product from "../models/productModel.js";
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-	const products = await Product.find({});
-	res.json(products);
+	const pageSize = 4;
+	const page = Number(req.query.pageNumber) || 1;
+
+	const count = await Product.countDocuments();
+	const products = await Product.find()
+		.limit(pageSize)
+		.skip(pageSize * (page - 1));
+
+	res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 // @desc    Fetch a single product
@@ -86,7 +93,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // @route   POST /api/products/:id/ reviews
 // @access  Private
 const createProductReview = asyncHandler(async (req, res) => {
-	const {rating, comment} = req.body;
+	const { rating, comment } = req.body;
 
 	const product = await Product.findById(req.params.id);
 
@@ -96,7 +103,7 @@ const createProductReview = asyncHandler(async (req, res) => {
 			(review) => review.user.toString() === req.user._id.toString()
 		);
 
-		if(alreadyReviewedIndex !== -1){
+		if (alreadyReviewedIndex !== -1) {
 			product.reviews.splice(alreadyReviewedIndex, 1);
 		}
 
@@ -111,19 +118,19 @@ const createProductReview = asyncHandler(async (req, res) => {
 
 		product.numReviews = product.reviews.length;
 
-		product.rating = 
-		product.reviews.reduce((acc, review) => acc + review.rating, 0) / product.reviews.length;
+		product.rating =
+			product.reviews.reduce((acc, review) => acc + review.rating, 0) / product.reviews.length;
 
 		await product.save();
 
-		if(alreadyReviewedIndex !== -1)
-			res.status(201).json({message: 'Review updated'});
+		if (alreadyReviewedIndex !== -1)
+			res.status(201).json({ message: 'Review updated' });
 		else
-			res.status(201).json({message: 'Review added'});
+			res.status(201).json({ message: 'Review added' });
 	}
 	else {
 		res.status(404);
-		throw new Error("Product not found"); 
+		throw new Error("Product not found");
 	}
 });
 
