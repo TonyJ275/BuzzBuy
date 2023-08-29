@@ -9,6 +9,7 @@ import { useState } from "react";
 import { addToCart } from "../slices/cartSlice";
 import { toast } from 'react-toastify';
 import { Form } from 'react-bootstrap';
+import Meta from '../components/Meta';
 
 const ProductScreen = () => {
    const { id: productId } = useParams();
@@ -65,6 +66,7 @@ const ProductScreen = () => {
             <Message variant='danger'>{error?.data?.message || error.error}</Message>
          ) : (
             <>
+               <Meta title={product.name} description={product.description} />
                <Row>
                   <Col md={5}>
                      <Image src={product.image} alt={product.name} fluid />
@@ -119,7 +121,7 @@ const ProductScreen = () => {
                                           value={qty}
                                           onChange={(e) => setQty(Number(e.target.value))}>
                                           {[...Array(product.countInStock).keys()].map((x) => (
-                                             <option key={x + 1} value={x + 1}>
+                                             x < 10 && <option key={x + 1} value={x + 1}>
                                                 {x + 1}
                                              </option>
                                           ))}
