@@ -416,7 +416,7 @@ For questions, suggestions, or bug reports, please reach out:
 
 ## 📄 License
 
-This project is licensed under the --- License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
 
